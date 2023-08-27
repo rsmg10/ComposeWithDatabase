@@ -1,0 +1,24 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  webapi:
+    build:
+      context: "C:\\Users\\r.gusbi\\Desktop\\work\\tutorial\\asp.net\\dockerCompose\\\
+        ApiDbCache"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/ApiDbCache.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      NUGET_PACKAGES: "C:\\Users\\r.gusbi\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\r.gusbi\\.nuget\\packages"
+    image: "apidbcache:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\r.gusbi\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "C:\\Users\\r.gusbi\\Desktop\\work\\tutorial\\asp.net\\dockerCompose\\ApiDbCache:/app:rw"
+    - "C:\\Users\\r.gusbi\\Desktop\\work\\tutorial\\asp.net\\dockerCompose\\ApiDbCache:/src:rw"
+    working_dir: "/app"

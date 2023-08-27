@@ -1,0 +1,45 @@
+﻿version: '3.8'
+services:
+  webapi:
+#    image: your_webapi_image_name:tag
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - POSTGRESQL_CONTAINER_NAME=${POSTGRESQL_CONTAINER_NAME}
+      - "Test__Test1=i dont know it"
+      - ASPNETCORE_ENVIRONMENT=Development
+    env_file:
+      - .env
+  db:
+    image: postgres
+    container_name: ${POSTGRESQL_CONTAINER_NAME}
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis
+    container_name: ${REDIS_CONTAINER_NAME}
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+volumes:
+  postgres_data:
+  redis_data:
